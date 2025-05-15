@@ -17,11 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Owner name to lowercase
+      - name: Convert repository owner to lowercase
+        id: prep
         run: |
-          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: '${{ github.repository_owner }}'
+          echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -35,4 +34,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${OWNER_LC}/sample-flask-app:latest
+          tags: ghcr.io/${{ steps.prep.outputs.owner_lc }}/sample-flask-app:latest
