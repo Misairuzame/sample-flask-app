@@ -37,5 +37,5 @@ jobs:
         with:
           context: .
           push: true
-          platform: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: ghcr.io/${{ steps.prep.outputs.owner_lc }}/sample-flask-app:latest
